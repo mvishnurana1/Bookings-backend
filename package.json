@@ -4,17 +4,18 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "server": "nodemon server.js", 
+    "server": "nodemon server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
     "bookings",
-    "cricket nets", 
+    "cricket nets",
     "revo"
   ],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "config": "^3.3.6",
     "express": "^4.17.1",
     "nodemon": "^2.0.7"
   }
