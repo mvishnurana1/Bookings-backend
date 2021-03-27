@@ -9,7 +9,11 @@ const BookingSchema = mongoose.Schema({
         type: String,
         required: true,
     },
-    bookingSchedule: {
+    startTime: {
+        type: Date,
+        require: true,
+    },
+    endTime: {
         type: Date,
         require: true,
     },
