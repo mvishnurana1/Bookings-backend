@@ -17,6 +17,16 @@ const BookingSchema = mongoose.Schema({
         type: Date,
         require: true,
     },
+    phone: {
+        type: String,
+    },
+    email: {
+        type: String,
+    },
+    payment: {
+        type: String,
+        default: 'in-shop',
+    },
     bookingConfirmationDate: {
         type: Date,
         default: Date.now,
