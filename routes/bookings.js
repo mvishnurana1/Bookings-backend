@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const auth = require('../middleware/auth');
 const { check, validationResult } = require('express-validator');
 
 const user = require('../models/Users');
@@ -37,13 +38,13 @@ router.post(
 // Check middleware for Admin:
 //         1. Get all the bookings with information about who has booked it etc.
 // @access  Public
-// The goal of endpoint is to only show bookings of future and nothing from past 
-// so we want less than to 
-router.get('/', async (req, res) => {
+// The goal of endpoint is to only show bookings of future and nothing from past
+// so we want less than to
+router.get('/', auth, async (req, res) => {
     try {
         const bookings = await AllBookings.find({
-            endTime: { $gte: new Date() },
-            startTime: { $lte: new Date()}
+            // endTime: { $gte: new Date() },
+            startTime: { $lte: new Date() },
         }).sort({ date: -1 });
         res.json(bookings);
     } catch (error) {
