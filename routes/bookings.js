@@ -113,7 +113,7 @@ router.put('/:id', auth, async (req, res) => {
 
         if (!booking) return res.status(404).json({ msg: 'Contact not found' });
 
-        // Make surec user owns the booking
+        // Make sure user owns the booking
         if (booking.user.toString() !== req.user.id) {
             return res.status(401).json({ msg: 'Not Authorised' });
         }
@@ -129,14 +129,29 @@ router.put('/:id', auth, async (req, res) => {
         console.error(err.message);
         res.status(500).send('Server Error');
     }
-    res.send('Update booking...');
 });
 
 // @route   Delete api/bookings
 // desc     Check middleware for [user to own before deleting]/admin.
 // @access  Private (user/admin)
-router.delete('/:id', (req, res) => {
-    res.send('Delete bookings');
+router.delete('/:id', auth, async (req, res) => {
+    try {
+        let booking = await Bookings.findById(req.params.id);
+
+        if (!booking) return res.status(404).json({ msg: 'Contact not found' });
+
+        // Make sure user owns the booking
+        if (booking.user.toString() !== req.user.id) {
+            return res.status(401).json({ msg: 'Not Authorised' });
+        }
+
+        await Bookings.findByIdAndRemove(req.params.id);
+
+        res.json(booking);
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send('Server Error');
+    }
 });
 
 module.exports = router;
