@@ -72,7 +72,6 @@ router.post(
 router.get('/', auth, async (req, res) => {
     try {
         const bookings = await Bookings.find({
-            // endTime: { $gte: new Date() },
             startTime: { $lte: new Date() },
         }).sort({ date: -1 });
         res.json(bookings);
